@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id       Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  walletId String? @unique(map: "walletId_UNIQUE") @db.VarChar(200)
+  role     String  @db.VarChar(10)
+  email    String  @unique(map: "email_UNIQUE") @db.VarChar(500)
+  name     String  @db.VarChar(200)
+  discord  String? @unique(map: "discord_UNIQUE") @db.VarChar(100)
+}

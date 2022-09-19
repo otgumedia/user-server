@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "module": "commonjs",
     "esModuleInterop": true,
     "target": "es6",
@@ -8,6 +9,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
+    "lib": ["esnext"],
     "paths": {
       "*": ["node_modules/*"]
     }
