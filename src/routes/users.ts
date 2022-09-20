@@ -1,5 +1,7 @@
 import express from "express";
 import { PrismaClient } from "@prisma/client";
+import { getUsers, createUser } from "../controllers/users";
+import { User } from "../types";
 
 const router = express.Router();
 
@@ -7,69 +9,48 @@ const prisma = new PrismaClient();
 
 // Get All of the Users
 
-router.get("/", (req, res, next) => {
-  let data: any;
+router.get("/", async (req, res, next) => {
+  try {
+    const data = await getUsers();
 
-  async function getUsers() {
-    const allUsers = await prisma.users.findMany({
-      select: {
-        id: true,
-        walletId: true,
-        role: true,
-        email: true,
-        name: true,
-        discord: true,
-      },
-    });
-    data = allUsers;
+    console.log(data);
+
+    res.status(201).send(data);
+
+    await prisma.$disconnect();
+  } catch (e) {
+    console.error(e);
+
+    res.status(400).send(e);
+
+    await prisma.$disconnect();
+
+    process.exit(1);
   }
-
-  getUsers()
-    .then(async () => {
-      console.log(data);
-      res.status(201).send(data);
-      await prisma.$disconnect();
-    })
-    .catch(async (e) => {
-      console.error(e);
-      res.status(400).send(e);
-      await prisma.$disconnect();
-      process.exit(1);
-    });
 });
 
 // Create A New User
 
-router.post("/", (req, res, next) => {
-  const { email, name, role, walletId, discord } = req.body;
+router.post("/", async (req, res, next) => {
+  const { email, name, role, walletId, discord }: User = req.body;
 
-  let data: any;
+  try {
+    const data = await createUser({ email, name, role, walletId, discord });
 
-  async function createUser() {
-    const user = await prisma.users.create({
-      data: {
-        email,
-        name,
-        role,
-        walletId,
-        discord,
-      },
-    });
-    data = user;
+    console.log(data);
+
+    res.status(201).send(data);
+
+    await prisma.$disconnect();
+  } catch (e) {
+    console.error(e);
+
+    res.status(400).send(e);
+
+    await prisma.$disconnect();
+
+    process.exit(1);
   }
-
-  createUser()
-    .then(async () => {
-      console.log(data);
-      res.status(201).send(data);
-      await prisma.$disconnect();
-    })
-    .catch(async (e) => {
-      console.log(e);
-      res.status(400).send(e);
-      await prisma.$disconnect();
-      process.exit(1);
-    });
 });
 
 export default router;
