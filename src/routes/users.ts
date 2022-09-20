@@ -26,16 +26,16 @@ router.get("/", (req, res, next) => {
 
   getUsers()
     .then(async () => {
-      console.log(data);
-      res.status(201).send(data);
       await prisma.$disconnect();
     })
     .catch(async (e) => {
+      await prisma.$disconnect();
       console.error(e);
       res.status(400).send(e);
-      await prisma.$disconnect();
       process.exit(1);
     });
+  console.log(data);
+  res.status(201).send(data);
 });
 
 // Create A New User
@@ -60,16 +60,16 @@ router.post("/", (req, res, next) => {
 
   createUser()
     .then(async () => {
-      console.log(data);
-      res.status(201).send(data);
       await prisma.$disconnect();
     })
     .catch(async (e) => {
+      await prisma.$disconnect();
       console.log(e);
       res.status(400).send(e);
-      await prisma.$disconnect();
       process.exit(1);
     });
+  console.log(data);
+  res.status(201).send(data);
 });
 
 export default router;
