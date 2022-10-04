@@ -5,9 +5,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "prestart": "npm run build",
-    "dev": "ts-node src/index.ts",
-    "start": "node .",
+    "watch": "tsc -w",
+    "dev": "nodemon src/index.ts",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nathan Nicholson",
@@ -21,6 +21,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
     "@types/node": "^18.7.18",
+    "nodemon": "^2.0.20",
     "prisma": "^4.3.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
