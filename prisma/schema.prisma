@@ -12,6 +12,6 @@ model users {
   walletId String? @unique(map: "walletId_UNIQUE") @db.VarChar(200)
   role     String  @db.VarChar(10)
   email    String  @unique(map: "email_UNIQUE") @db.VarChar(500)
-  name     String  @db.VarChar(200)
+  name     String? @db.VarChar(200)
   discord  String? @unique(map: "discord_UNIQUE") @db.VarChar(100)
 }
