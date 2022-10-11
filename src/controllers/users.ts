@@ -21,7 +21,6 @@ export async function getUsers(
     console.error(e);
     res.status(400).send(e);
     await prisma.$disconnect();
-    process.exit(1);
   }
 }
 
@@ -49,6 +48,5 @@ export async function createUser(
     console.error(e);
     res.status(400).send(e);
     await prisma.$disconnect();
-    process.exit(1);
   }
 }
