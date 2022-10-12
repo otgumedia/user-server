@@ -7,6 +7,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
+app.use(require("body-parser").urlencoded({ extended: false }));
 
 app.use("/users", usersRoute);
 
