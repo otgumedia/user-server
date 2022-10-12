@@ -33,6 +33,8 @@ export async function createUser(
 ) {
   const { email, name, role, walletId, discord }: User = req.body;
 
+  console.log(email);
+
   try {
     const data = await handleCreateUser({
       email,
